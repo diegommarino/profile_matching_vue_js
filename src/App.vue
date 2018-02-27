@@ -1,7 +1,6 @@
 <template>
   <div id="app">
   <app-header/>
-    <img id="initial-logo" src="./assets/shuffle.png">
     <router-view/>
   </div>
 </template>
@@ -27,9 +26,5 @@ body, html {
   -moz-osx-font-smoothing: grayscale;
   text-align: center;
   color: #2c3e50;
-}
-
-#initial-logo {
-  width: 20%;
 }
 </style>
