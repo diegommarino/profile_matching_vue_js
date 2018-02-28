@@ -11,7 +11,7 @@ describe('Header.vue', () => {
   })
 
   it('should render correct contents', () => {
-    expect(vm.$el.querySelector('#initial-logo').src)
+    expect(vm.$el.querySelector('#nav-logo').src)
       .to.contain('img/shuffle_white')
   })
 
@@ -22,7 +22,7 @@ describe('Header.vue', () => {
 
   it('should have a nav with 3 links and a button', () => {
     expect(vm.$el.querySelectorAll('nav a').length)
-      .to.equal(3)
+      .to.equal(4)
     expect(vm.$el.querySelectorAll('nav button').length)
       .to.equal(1)
   })

@@ -1,7 +1,7 @@
 <template>
   <header id="header">
     <div class="logo">
-      <router-link to="/"><img id="initial-logo" src="@/assets/shuffle_white.png"></router-link>
+      <router-link to="/"><img id="nav-logo" src="@/assets/shuffle_white.png"></router-link>
     </div>
     <nav>
       <ul>
@@ -13,6 +13,9 @@
         </li>
         <li>
           <a href="#">Profile</a>
+        </li>
+        <li>
+          <router-link to="/profile-form">Edit Profile</router-link>
         </li>
         <li>
           <button class="logout">Logout</button>
@@ -28,55 +31,59 @@ export default {
 </script>
 
 <style scoped>
-  #header {
-    height: 56px;
-    display: flex;
-    flex-flow: row;
-    justify-content: space-between;
-    align-items: center;
-    background-color: #521751;
-    padding: 0 20px;
-  }
+#header {
+  height: 56px;
+  display: flex;
+  flex-flow: row;
+  justify-content: space-between;
+  align-items: center;
+  background-color: #521751;
+  padding: 0 20px;
+  margin-bottom: 50px;
+}
 
-  .logo {
-    width: 20%;
-    text-align: left;
-  }
+.logo {
+  text-align: left;
+}
 
-  nav {
-    height: 100%;
-  }
+#nav-logo{
+  width: 10%;
+}
 
-  ul {
-    list-style: none;
-    margin: 0;
-    padding: 0;
-    height: 100%;
-    display: flex;
-    flex-flow: row;
-    align-items: center;
-  }
+nav {
+  height: 100%;
+}
 
-  li {
-    margin: 0 16px;
-  }
+ul {
+  list-style: none;
+  margin: 0;
+  padding: 0;
+  height: 100%;
+  display: flex;
+  flex-flow: row;
+  align-items: center;
+}
 
-  li a {
-    text-decoration: none;
-    color: white;
-  }
+li {
+  margin: 0 16px;
+}
 
-  li a:hover,
-  li a:active,
-  li a.router-link-active {
-    color: #fa923f;
-  }
+li a {
+  text-decoration: none;
+  color: white;
+}
 
-  .logout {
-    background-color: transparent;
-    border: none;
-    font: inherit;
-    color: white;
-    cursor: pointer;
-  }
+li a:hover,
+li a:active,
+li a.router-link-active {
+  color: #fa923f;
+}
+
+.logout {
+  background-color: transparent;
+  border: none;
+  font: inherit;
+  color: white;
+  cursor: pointer;
+}
 </style>
