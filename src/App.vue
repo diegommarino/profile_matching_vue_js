@@ -27,4 +27,10 @@ body, html {
   text-align: center;
   color: #2c3e50;
 }
+
+.btn-theme {
+  background-color: #521751;
+  border-color: #521751;
+  color: #fdffff;
+}
 </style>
