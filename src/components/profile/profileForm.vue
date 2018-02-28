@@ -69,7 +69,7 @@
 
       <br>
 
-      <button type="submit" class="btn btn-primary btn-block" :disabled="$v.$invalid">Save</button>
+      <button type="submit" class="btn btn-theme btn-block" :disabled="$v.$invalid">Save</button>
     </form>
   </div>
 </template>

@@ -4,8 +4,8 @@
     <h1>Welcome to Profile Matching</h1>
     <p>Just check if your interests matches with another person interests.</p>
     <div class="cta">
-      <a href="#">Sign Up</a>
-      <a href="#">Sign In</a>
+      <router-link to="/signup">Sign Up</router-link>
+      <router-link to="/signin">Sign In</router-link>
     </div>
   </div>
 </template>

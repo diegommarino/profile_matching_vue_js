@@ -6,10 +6,10 @@
     <nav>
       <ul>
         <li>
-          <a href="#">Sign Up</a>
+          <router-link to="/signup">Sign Up</router-link>
         </li>
         <li>
-          <a href="#">Sign In</a>
+          <router-link to="/signin">Sign In</router-link>
         </li>
         <li>
           <a href="#">Profile</a>
