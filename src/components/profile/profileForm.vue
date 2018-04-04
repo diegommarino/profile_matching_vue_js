@@ -60,6 +60,7 @@
 
       <p id="topics-label">Chose your favorite topics (maximun 6).</p>
       <bootstrap-checkbox-board
+          v-if="isLoaded"
           :itemsList="topicsList"
           :maxItems="$v.topicsInputs.$params.maxLen.max"
           :v="$v.topicsInputs"
@@ -76,10 +77,12 @@
 
 <script>
 // Importing necessary validations.
-import { required, minLength, maxLength } from 'vuelidate/lib/validators'
+import { required, maxLength } from 'vuelidate/lib/validators'
 import BootstrapCheckboxBoard from '@/components/general/checkboxes/checkboxBoard.vue'
+import axios from 'axios'
 
 export default {
+
   data () {
     return {
       firstName: '',
@@ -87,7 +90,8 @@ export default {
       currentPosition: '',
       about: '',
       topicsInputs: [],
-      topicsList: ['a', 'b', 'c', 'd', 'e', 'f', 'g', 'h']
+      topicsList: {},
+      isLoaded: false
     }
   },
   // Fields validation.
@@ -118,17 +122,42 @@ export default {
   methods: {
     onSubmit () {
       const formData = {
-        firstName: this.firstName,
-        lastName: this.lastName,
-        currentPosition: this.currentPosition,
+        first_name: this.firstName,
+        last_name: this.lastName,
+        current_position: this.currentPosition,
         about: this.about,
         topics: this.topicsInputs
       }
       console.log(formData)
+      axios.post('/profiles/create/', formData)
+        .then(res => {
+          console.log(res)
+        })
+        .catch(function (error) {
+          console.log(error)
+        })
     },
     fullNameSize () {
       return (this.firstName.length + this.lastName.length) <= 60
+    },
+    populateTopicsList () {
+      var thisVue = this
+      axios.get('/topics/')
+        .then(res => {
+          res.data.forEach(function (item) {
+            // thisVue.topicsList['a'] = 'a'
+            thisVue.topicsList[item['id'].toString()] = item['name']
+          })
+          this.isLoaded = true
+        })
+        .catch(error => {
+          console.log(error)
+        })
     }
+  },
+
+  beforeMount: function () {
+    this.populateTopicsList()
   }
 }
 </script>

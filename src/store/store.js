@@ -1,7 +1,6 @@
 import Vue from 'vue'
 import Vuex from 'vuex'
-
-// import router from './router'
+import authStore from './modules/auth_store'
 
 Vue.use(Vuex)
 
@@ -13,5 +12,8 @@ export default new Vuex.Store({
   actions: {
   },
   getters: {
+  },
+  modules: {
+    authStore
   }
 })

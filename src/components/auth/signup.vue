@@ -59,7 +59,6 @@
 
 <script>
 import { required, email, sameAs, minLength } from 'vuelidate/lib/validators'
-
 export default {
   name: 'SignUp',
 
@@ -92,7 +91,7 @@ export default {
         email: this.email,
         password: this.password
       }
-      console.log(formData)
+      this.$store.dispatch('signup', formData)
     }
   }
 }

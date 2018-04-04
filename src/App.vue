@@ -7,10 +7,15 @@
 
 <script>
 import Header from '@/components/header/Header.vue'
+import axios from 'axios'
+
 export default {
   name: 'App',
   components: {
     'app-header': Header
+  },
+  created () {
+    this.$store.dispatch('tryAutoLogin')
   }
 }
 </script>
