@@ -7,10 +7,18 @@
 
 <script>
 import Header from '@/components/header/Header.vue'
+import axios from 'axios'
 export default {
   name: 'App',
   components: {
     'app-header': Header
+  },
+  created () {
+    if (this.$store.getters.isAuthenticated) {
+      axios.defaults.headers.common['Authorization'] = 'Token ' + this.$store.getters.token
+    } else {
+      delete axios.defaults.headers.common['Authorization']
+    }
   }
 }
 </script>

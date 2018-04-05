@@ -12,13 +12,13 @@
           <router-link to="/signin">Sign In</router-link>
         </li>
         <li>
-          <a href="#">Profile</a>
+          <router-link to="/profile">Profile</router-link>
         </li>
         <li>
           <router-link to="/profile-form">Edit Profile</router-link>
         </li>
         <li>
-          <button class="logout">Logout</button>
+          <button class="logout" @click.prevent="logout()">Logout</button>
         </li>
       </ul>
     </nav>
@@ -27,6 +27,11 @@
 
 <script>
 export default {
+  methods: {
+    logout () {
+      this.$store.dispatch('signout')
+    }
+  }
 }
 </script>
 
