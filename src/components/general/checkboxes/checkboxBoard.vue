@@ -1,11 +1,11 @@
 <template>
 <div id="checkbox-box" class="card border" :class="{'border-danger': v.$error}">
   <div class="form-row">
-    <div class="form-group" :class=[componentSize] v-for="(item, index) in itemsList">
+    <div class="form-group" :class=[componentSize] v-for="(item, key, index) in itemsListValues">
       <input
           class="form-check-input"
           type="checkbox"
-          :value="item"
+          :value="key"
           :id="'gridCheck' + index"
           @change="updateItems();v.$touch();"
           v-model="itemsInputs">
@@ -27,7 +27,9 @@ export default {
 
   data: function () {
     return {
-      itemsInputs: []
+      itemsInputs: [],
+      itemsListValues: this.itemsList
+
     }
   },
 
