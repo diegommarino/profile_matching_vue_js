@@ -5,19 +5,22 @@
     </div>
     <nav>
       <ul>
-        <li>
+        <li v-if="!isLogedIn">
+          <router-link to="/" exact>Home</router-link>
+        </li>
+        <li v-if="!isLogedIn">
           <router-link to="/signup">Sign Up</router-link>
         </li>
-        <li>
+        <li v-if="!isLogedIn">
           <router-link to="/signin">Sign In</router-link>
         </li>
-        <li>
+        <li v-if="isLogedIn">
           <router-link to="/profile">Profile</router-link>
         </li>
-        <li>
+        <li v-if="isLogedIn">
           <router-link to="/profile-form">Edit Profile</router-link>
         </li>
-        <li>
+        <li v-if="isLogedIn">
           <button class="logout" @click.prevent="logout()">Logout</button>
         </li>
       </ul>
@@ -30,6 +33,12 @@ export default {
   methods: {
     logout () {
       this.$store.dispatch('signout')
+    }
+  },
+
+  computed: {
+    isLogedIn () {
+      return this.$store.getters.isAuthenticated
     }
   }
 }
