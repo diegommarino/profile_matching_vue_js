@@ -5,22 +5,22 @@
     </div>
     <nav>
       <ul>
-        <li v-if="!isLogedIn">
+        <li v-if="!isLogedIn" @click="$emit('clear-message')">
           <router-link to="/" exact>Home</router-link>
         </li>
-        <li v-if="!isLogedIn">
+        <li v-if="!isLogedIn" @click="$emit('clear-message')">
           <router-link to="/signup">Sign Up</router-link>
         </li>
-        <li v-if="!isLogedIn">
+        <li v-if="!isLogedIn" @click="$emit('clear-message')">
           <router-link to="/signin">Sign In</router-link>
         </li>
-        <li v-if="isLogedIn">
+        <li v-if="isLogedIn" @click="$emit('clear-message')">
           <router-link to="/profile">Profile</router-link>
         </li>
-        <li v-if="isLogedIn">
+        <li v-if="isLogedIn" @click="$emit('clear-message')">
           <router-link to="/profile-form">Edit Profile</router-link>
         </li>
-        <li v-if="isLogedIn">
+        <li v-if="isLogedIn" @click="$emit('clear-message')">
           <button class="logout" @click.prevent="logout()">Logout</button>
         </li>
       </ul>
@@ -53,7 +53,6 @@ export default {
   align-items: center;
   background-color: #521751;
   padding: 0 20px;
-  margin-bottom: 50px;
 }
 
 .logo {
