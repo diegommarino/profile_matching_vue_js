@@ -83,6 +83,7 @@ import axios from 'axios'
 export default {
   data () {
     return {
+      id: null,
       firstName: '',
       lastName: '',
       currentPosition: '',
@@ -120,6 +121,7 @@ export default {
   methods: {
     onSubmit () {
       const formData = {
+        id: this.id,
         first_name: this.firstName,
         last_name: this.lastName,
         current_position: this.currentPosition,
@@ -127,8 +129,26 @@ export default {
         topics: this.topicsInputs
       }
 
+      if (this.id == null) {
+        this.createProfile(formData)
+      } else {
+        this.editProfile(formData)
+      }
+    },
+    createProfile (formData) {
       axios.post('/profiles/create/', formData)
         .then(res => {
+          this.$store.dispatch('fetchProfile', res.data.id)
+          console.log(res)
+        })
+        .catch(function (error) {
+          console.log(error)
+        })
+    },
+    editProfile (formData) {
+      axios.put(('/profiles/' + this.id + '/'), formData)
+        .then(res => {
+          this.$store.dispatch('fetchProfile', res.data.id)
           console.log(res)
         })
         .catch(function (error) {
@@ -143,7 +163,6 @@ export default {
       axios.get('/topics/')
         .then(res => {
           res.data.forEach(function (item) {
-            // thisVue.topicsList['a'] = 'a'
             thisVue.topicsList[item['id'].toString()] = item['name']
           })
           this.isLoaded = true
@@ -154,6 +173,7 @@ export default {
     },
     setDataValues () {
       if (this.$store.getters.user) {
+        this.id = this.$store.getters.user.id
         this.firstName = this.$store.getters.user.first_name
         this.lastName = this.$store.getters.user.last_name
         this.currentPosition = this.$store.getters.user.current_position

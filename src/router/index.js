@@ -15,7 +15,18 @@ const router = new Router({
   mode: 'history',
   routes: [
     { path: '/', name: 'Welcome', component: Welcome },
-    { path: '/profile', name: 'Profile', component: Profile },
+    {
+      path: '/profile',
+      name: 'Profile',
+      component: Profile,
+      beforeEnter (to, from, next) {
+        if (store.getters.user) {
+          next()
+        } else {
+          next('/profile-form')
+        }
+      }
+    },
     { path: '/profile-form', name: 'ProfileForm', component: ProfileForm },
     { path: '/signin', name: 'SignIn', component: SignIn },
     { path: '/signup', name: 'SignUp', component: SignUp }
