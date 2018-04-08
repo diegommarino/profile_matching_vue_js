@@ -79,6 +79,7 @@
 import { required, maxLength } from 'vuelidate/lib/validators'
 import BootstrapCheckboxBoard from '@/components/general/checkboxes/checkboxBoard.vue'
 import axios from 'axios'
+import router from '@/router'
 
 export default {
   data () {
@@ -136,23 +137,25 @@ export default {
       }
     },
     createProfile (formData) {
+      const thisVue = this
       axios.post('/profiles/create/', formData)
         .then(res => {
-          this.$store.dispatch('fetchProfile', res.data.id)
-          console.log(res)
+          thisVue.$store.dispatch('fetchProfile', res.data.id)
+          router.replace('/profile')
         })
         .catch(function (error) {
-          console.log(error)
+          thisVue.$store.dispatch('setAppAlert', {message: error.response.data})
         })
     },
     editProfile (formData) {
+      const thisVue = this
       axios.put(('/profiles/' + this.id + '/'), formData)
         .then(res => {
-          this.$store.dispatch('fetchProfile', res.data.id)
-          console.log(res)
+          thisVue.$store.dispatch('fetchProfile', res.data.id)
+          router.replace('/profile')
         })
         .catch(function (error) {
-          console.log(error)
+          thisVue.$store.dispatch('setAppAlert', {message: error.response.data})
         })
     },
     fullNameSize () {
@@ -168,7 +171,7 @@ export default {
           this.isLoaded = true
         })
         .catch(error => {
-          console.log(error)
+          thisVue.$store.dispatch('setAppAlert', {message: error.response.data})
         })
     },
     setDataValues () {

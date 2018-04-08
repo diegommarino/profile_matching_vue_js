@@ -1,17 +1,32 @@
 <template>
   <div id="app">
-  <app-header/>
-    <router-view/>
+    <app-header @clear-message="clearMessage()"/>
+    <bootstrap-alert v-if="appAlert" @clear-message="clearMessage()" :message="appAlert.message" :type="appAlert.type" :dismissable="appAlert.dismissable"/>
+    <div id="router-content">
+      <router-view/>
+    </div>
   </div>
 </template>
 
 <script>
 import Header from '@/components/header/Header.vue'
+import BootstrapAlert from '@/components/alert_messages/bootstrap-alert.vue'
 import axios from 'axios'
 export default {
   name: 'App',
   components: {
-    'app-header': Header
+    'app-header': Header,
+    'bootstrap-alert': BootstrapAlert
+  },
+  methods: {
+    clearMessage () {
+      this.$store.dispatch('unsetAppAlert')
+    }
+  },
+  computed: {
+    appAlert () {
+      return this.$store.getters.appAlert
+    }
   },
   created () {
     if (this.$store.getters.isAuthenticated) {
@@ -34,6 +49,9 @@ body, html {
   -moz-osx-font-smoothing: grayscale;
   text-align: center;
   color: #2c3e50;
+}
+#router-content {
+  margin-top: 50px;
 }
 
 .btn-theme {

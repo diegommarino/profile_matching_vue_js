@@ -6,7 +6,8 @@ const state = {
   userId: null,
   user: null,
   profileId: null,
-  isStaff: null
+  isStaff: null,
+  appAlert: null
 }
 
 const mutations = {
@@ -28,7 +29,14 @@ const mutations = {
     state.isStaff = null
     state.profileId = null
     state.user = null
+    state.appAlert = null
     localStorage.clear()
+  },
+  storeAppAlert (state, alertInfo) {
+    state.appAlert = alertInfo
+  },
+  clearAppAlert (state) {
+    state.appAlert = null
   }
 }
 
@@ -53,7 +61,7 @@ const actions = {
         }
       })
       .catch(function (error) {
-        console.log(error)
+        dispatch('setAppAlert', {message: error.response.data})
       })
   },
   /**
@@ -82,10 +90,10 @@ const actions = {
         }
       })
       .catch(function (error) {
-        console.log(error)
+        dispatch('setAppAlert', {message: error.response.data})
       })
   },
-  signout ({state, commit}) {
+  signout ({state, commit, dispatch}) {
     axios.post('/logout/', {'auth_token': state.token})
       .then(res => {
         if (res.status === 200) {
@@ -95,7 +103,7 @@ const actions = {
         }
       })
       .catch(function (error) {
-        console.log(error)
+        dispatch('setAppAlert', {message: error.response.data})
       })
   },
   /**
@@ -106,7 +114,7 @@ const actions = {
    * @param  {state}  options.state - used to access state
    * @return {nil} - if no token
    */
-  fetchProfile ({commit, state}, profileId) {
+  fetchProfile ({state, commit, dispatch}, profileId) {
     return new Promise(resolve => {
       if (!state.token) {
         return
@@ -116,7 +124,7 @@ const actions = {
           commit('storeUser', res.data)
           resolve()
         })
-        .catch(error => console.log(error))
+        .catch(error => dispatch('setAppAlert', {message: error.response.data}))
     })
   },
 
@@ -126,6 +134,12 @@ const actions = {
     } else {
       router.replace('/profile-form')
     }
+  },
+  setAppAlert ({commit}, params) {
+    commit('storeAppAlert', params)
+  },
+  unsetAppAlert ({commit}) {
+    commit('clearAppAlert')
   }
 }
 
@@ -138,6 +152,9 @@ const getters = {
   },
   token (state) {
     return state.token
+  },
+  appAlert (state) {
+    return state.appAlert
   }
 }
 
