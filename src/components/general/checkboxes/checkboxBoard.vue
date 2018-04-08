@@ -35,7 +35,6 @@ export default {
 
   methods: {
     updateItems () {
-      console.log('test')
       this.$emit('updatedBoxes', this.itemsInputs)
     }
   }
